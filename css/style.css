@@ -1,12 +1,12 @@
 /* ============================================================
-   Tanvir Hossain Rifat — digital business card
-   Brand palette (from the Shordindu logo):
-     deep teal  #0E3536   |   amber  #EEA347
-   Layout: dark leafy backdrop + floating white card
-     · Mobile  = vertical  (photo on top, details below)
-     · Desktop = landscape (details left, photo right)
-   1. Tokens   2. Reset   3. Base   4. Layout
-   5. Components          6. Animations  7. Media queries
+   Tanvir Hossain Rifat — executive link-in-bio
+   Brand: deep teal #0E3536 · warm gold #EEA347
+   Type : DM Serif Display (display) · Manrope (UI)
+   Layout: dark botanical backdrop + white card
+     · Desktop = landscape, portrait right behind an organic curve
+     · Mobile  = vertical stack, curve adapted to the photo's base
+   1. Tokens   2. Reset   3. Base   4. Card shell
+   5. Media curve  6. Body components  7. Animations  8. Queries
    ============================================================ */
 
 /* 1. Tokens -------------------------------------------------- */
@@ -18,19 +18,23 @@
   --teal-600: #1A5C5D;
   --amber: #EEA347;
   --amber-soft: #F7D9AC;
-  --amber-deep: #C97F27;
+  /* Deepened gold — #EEA347 only reaches 2.1:1 on a light card, this hits AA */
+  --amber-ink: #A6641A;
 
   /* Neutrals */
   --page: #06110F;
   --surface: #FFFFFF;
+  --surface-2: #F7F1E7;
   --ink: #16221F;
-  --muted: #5B6763;
+  --muted: #5A6560;
 
-  --radius-card: 26px;
+  --radius-card: 30px;
   --radius-lg: 20px;
   --radius-pill: 999px;
-  --shadow-card: 0 44px 90px -34px rgba(0, 0, 0, .78);
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --shadow-card: 0 50px 100px -42px rgba(0, 0, 0, .82);
+
+  --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 /* 2. Reset --------------------------------------------------- */
@@ -56,17 +60,17 @@ body {
   min-height: 100dvh;
   display: flex;
   overflow-x: hidden;
-  padding: clamp(14px, 4vw, 46px);
+  padding: clamp(16px, 3.2vw, 48px);
   background-color: var(--page);
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Leafy photo backdrop */
+/* Dark botanical backdrop */
 body::before {
   content: "";
   position: fixed;
@@ -75,7 +79,7 @@ body::before {
   background: var(--page) url("../assets/background.png") center / cover no-repeat;
 }
 
-/* Darkening wash so the white card always pops */
+/* Gold highlights + depth wash so the card always reads clearly */
 body::after {
   content: "";
   position: fixed;
@@ -83,8 +87,9 @@ body::after {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(125% 85% at 50% 0, rgba(6, 17, 15, .10), rgba(3, 10, 9, .60) 74%),
-    linear-gradient(180deg, rgba(3, 10, 9, .28), rgba(3, 10, 9, .52));
+    radial-gradient(58% 42% at 84% 10%, rgba(238, 163, 71, .24), transparent 62%),
+    radial-gradient(52% 44% at 8% 92%, rgba(26, 92, 93, .30), transparent 66%),
+    radial-gradient(125% 90% at 50% 0, rgba(6, 17, 15, .12), rgba(3, 10, 9, .66) 76%);
 }
 
 :focus-visible {
@@ -101,13 +106,13 @@ body::after {
   overflow: hidden;
 }
 
-/* 4. Layout -------------------------------------------------- */
+/* 4. Card shell ---------------------------------------------- */
 .card {
   position: relative;
   z-index: 1;
   margin: auto;
   width: 100%;
-  max-width: 520px;
+  max-width: 560px;
   display: flex;
   flex-direction: column;
   background: var(--surface);
@@ -116,60 +121,86 @@ body::after {
   box-shadow: var(--shadow-card), 0 0 0 1px rgba(255, 255, 255, .07);
 }
 
+/* 5. Media + organic curve ----------------------------------- */
+/* --curve is one reusable SVG mask; the bands reuse it, offset,
+   to create the layered teal/gold edges behind the portrait. */
 .card__media {
   position: relative;
-  aspect-ratio: 5 / 4;
-  overflow: hidden;
-  background: var(--teal-800);
+  aspect-ratio: 1 / 1;
+  --curve: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%20preserveAspectRatio='none'%3E%3Cpath%20d='M0,0%20L100,0%20L100,83%20C79,97%2055,69%2031,85%20C17,94%207,87%200,93%20Z'%20fill='%23ffffff'/%3E%3C/svg%3E");
 }
 
-.card__photo {
+.card__photo,
+.card__band {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 22%;
+  -webkit-mask-image: var(--curve);
+          mask-image: var(--curve);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
 }
 
+.card__photo {
+  z-index: 3;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+.card__band { z-index: 1; }
+
+.card__band--teal {
+  background: linear-gradient(150deg, var(--teal-600), var(--teal-900));
+  transform: translateY(18px);
+}
+
+.card__band--gold {
+  z-index: 2;
+  background: linear-gradient(150deg, var(--amber-soft), var(--amber));
+  transform: translateY(9px);
+}
+
+/* 6. Body components ----------------------------------------- */
 .card__body {
   display: flex;
   flex-direction: column;
-  gap: clamp(20px, 5vw, 28px);
-  padding: clamp(22px, 6vw, 34px);
+  gap: clamp(22px, 5vw, 30px);
+  padding: clamp(26px, 6.5vw, 40px);
+  padding-top: clamp(36px, 8.5vw, 52px);
 }
 
-/* 5. Components ---------------------------------------------- */
-/* Profile */
-.profile__name {
-  font-size: clamp(1.75rem, 7.6vw, 2.6rem);
-  font-weight: 700;
-  line-height: 1.07;
-  letter-spacing: -.02em;
-  color: var(--ink);
+/* Identity */
+.identity__name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 9vw, 4rem);
+  line-height: 1;
+  letter-spacing: .005em;
+  color: var(--teal-800);
 }
 
-.profile__role {
-  margin-top: .5em;
-  font-size: clamp(.8rem, 3.3vw, .92rem);
-  font-weight: 500;
-  letter-spacing: .16em;
+.identity__last {
+  display: block;
+  color: var(--amber-ink);
+}
+
+.identity__role {
+  margin-top: clamp(10px, 2vw, 14px);
+  font-size: clamp(.78rem, 2.1vw, .92rem);
+  font-weight: 600;
+  letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
-/* Actions */
+/* Contact actions — always two equal columns */
 .actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(12px, 3.6vw, 18px);
-}
-
-.actions__col {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-  min-width: 0;
+  gap: clamp(10px, 2.6vw, 16px);
 }
 
 .actions__btn {
@@ -178,178 +209,169 @@ body::after {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+  gap: clamp(6px, 1.6vw, 10px);
   min-height: 54px;
-  padding: 0 16px;
+  padding: 0 clamp(9px, 2.4vw, 20px);
   border-radius: var(--radius-pill);
-  font-weight: 600;
-  font-size: clamp(.95rem, 3.9vw, 1.06rem);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(.85rem, 3.1vw, 1rem);
   letter-spacing: .01em;
-  color: var(--surface);
-  transition: transform .26s ease, box-shadow .26s ease, filter .26s ease;
+  transition: transform .28s cubic-bezier(.22, .61, .36, 1),
+              box-shadow .28s ease, border-color .28s ease,
+              background-color .28s ease, color .28s ease;
 }
 
 .actions__btn svg {
-  width: 19px;
-  height: 19px;
+  width: clamp(16px, 4.4vw, 19px);
+  height: clamp(16px, 4.4vw, 19px);
   flex: none;
-  color: var(--amber);
 }
 
-.actions__btn--email {
-  background: linear-gradient(155deg, var(--teal-700), var(--teal-900) 88%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 12px 26px -12px rgba(8, 33, 31, .8);
+.actions__btn--primary {
+  color: var(--surface);
+  background: linear-gradient(155deg, var(--teal-700), var(--teal-900) 90%);
+  box-shadow: 0 14px 30px -14px rgba(8, 33, 31, .85),
+              inset 0 1px 0 rgba(255, 255, 255, .12);
 }
 
-.actions__btn--call {
-  background: linear-gradient(155deg, var(--teal-600), var(--teal-800) 88%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 12px 26px -12px rgba(8, 33, 31, .7);
+.actions__btn--primary svg { color: var(--amber); }
+
+.actions__btn--secondary {
+  color: var(--teal-800);
+  background: var(--surface-2);
+  border: 1px solid rgba(14, 53, 54, .16);
+  box-shadow: 0 10px 24px -16px rgba(8, 33, 31, .5);
 }
 
-.actions__btn:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.06);
-}
+.actions__btn--secondary svg { color: var(--teal-700); }
 
+.actions__btn:hover { transform: translateY(-2px); }
 .actions__btn:active { transform: translateY(0); }
 
-.actions__detail {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 30px;
-  font-size: clamp(.62rem, 2.6vw, .72rem);
-  letter-spacing: .04em;
-  color: var(--muted);
-  text-align: center;
-  overflow-wrap: anywhere;
-  transition: color .25s ease;
+.actions__btn--primary:hover {
+  box-shadow: 0 20px 38px -14px rgba(8, 33, 31, .9),
+              inset 0 1px 0 rgba(255, 255, 255, .12);
 }
 
-.actions__detail:hover { color: var(--teal-800); }
+.actions__btn--secondary:hover { border-color: var(--amber); }
 
-/* Brand banner */
-.brand-card {
+/* Featured Shordindu card */
+.feature {
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
-  gap: clamp(12px, 3.2vw, 18px);
-  padding: clamp(13px, 3.4vw, 17px) clamp(15px, 4vw, 22px);
+  gap: clamp(12px, 3vw, 16px);
+  padding: clamp(14px, 3.4vw, 18px) clamp(16px, 4vw, 20px);
   border-radius: var(--radius-lg);
-  background: linear-gradient(150deg, var(--teal-700) 0%, var(--teal-800) 48%, var(--teal-900) 100%);
-  border: 1px solid rgba(238, 163, 71, .38);
-  box-shadow: 0 18px 34px -20px rgba(8, 33, 31, .9),
-              inset 0 1px 0 rgba(255, 255, 255, .08);
+  background: linear-gradient(150deg, var(--teal-700) 0%, var(--teal-800) 46%, var(--teal-900) 100%);
+  border: 1px solid rgba(238, 163, 71, .40);
+  box-shadow: 0 22px 40px -22px rgba(8, 33, 31, .9),
+              inset 0 1px 0 rgba(255, 255, 255, .07);
   color: var(--surface);
   transition: transform .3s ease, box-shadow .3s ease;
 }
 
-.brand-card::before {
+.feature::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(72% 130% at 0 0, rgba(238, 163, 71, .22), transparent 58%);
+  background: radial-gradient(72% 130% at 0 0, rgba(238, 163, 71, .24), transparent 58%);
 }
 
-.brand-card:hover,
-.brand-card:focus-visible {
+.feature__decor {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: .5;
+}
+
+.feature__decor path {
+  fill: none;
+  stroke: var(--amber);
+  stroke-opacity: .3;
+  stroke-width: 1.1;
+}
+
+.feature:hover,
+.feature:focus-visible {
   transform: translateY(-3px);
-  box-shadow: 0 24px 44px -20px rgba(8, 33, 31, .95),
-              inset 0 1px 0 rgba(255, 255, 255, .08);
+  box-shadow: 0 30px 52px -22px rgba(8, 33, 31, .95),
+              inset 0 1px 0 rgba(255, 255, 255, .07);
 }
 
-.brand-card__badge {
+.feature__badge {
   position: relative;
   z-index: 1;
   flex: none;
   display: grid;
   place-items: center;
-  width: clamp(48px, 12.5vw, 58px);
+  width: clamp(48px, 12vw, 56px);
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background: rgba(238, 163, 71, .14);
   border: 1px solid rgba(238, 163, 71, .5);
 }
 
-.brand-card__logo {
+.feature__logo {
   width: 52%;
   height: auto;
   filter: url(#brandify);
 }
 
-.brand-card__text {
+.feature__text {
   position: relative;
   z-index: 1;
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
-.brand-card__title {
-  font-weight: 700;
-  font-size: clamp(.92rem, 3.7vw, 1.08rem);
-  letter-spacing: .16em;
+.feature__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 5.2vw, 1.7rem);
+  line-height: 1.1;
   color: var(--surface);
 }
 
-.brand-card__cta {
-  font-size: clamp(.7rem, 2.9vw, .8rem);
-  letter-spacing: .02em;
+.feature__label {
+  font-size: clamp(.72rem, 2.6vw, .82rem);
+  font-weight: 600;
+  letter-spacing: .06em;
   color: var(--amber-soft);
 }
 
-.brand-card__arrow {
+.feature__arrow {
   position: relative;
   z-index: 1;
   flex: none;
   display: grid;
   place-items: center;
-  width: clamp(36px, 9.4vw, 42px);
+  width: clamp(38px, 10vw, 44px);
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  background: var(--surface);
-  color: var(--teal-800);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, .3), 0 0 0 4px rgba(238, 163, 71, .16);
+  background: var(--amber);
+  color: var(--teal-900);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .3);
   transition: transform .3s ease;
 }
 
-.brand-card__arrow svg {
-  width: 17px;
-  height: 17px;
+.feature__arrow svg {
+  width: 18px;
+  height: 18px;
 }
 
-.brand-card:hover .brand-card__arrow,
-.brand-card:focus-visible .brand-card__arrow { transform: translateX(4px); }
+.feature:hover .feature__arrow,
+.feature:focus-visible .feature__arrow { transform: translateX(4px); }
 
-/* Footer */
-.footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.footer::before {
-  content: "";
-  width: 48px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--amber), transparent);
-}
-
-.footer__text {
-  font-size: clamp(.66rem, 2.8vw, .74rem);
-  font-weight: 500;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-align: center;
-}
-
-/* 6. Animations ---------------------------------------------- */
+/* 7. Animations ---------------------------------------------- */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: none; }
@@ -361,43 +383,41 @@ body::after {
   body.is-loaded .reveal { animation: fadeUp .6s cubic-bezier(.22, .61, .36, 1) both; }
 
   body.is-loaded .reveal--1 { animation-delay: .05s; }
-  body.is-loaded .reveal--2 { animation-delay: .14s; }
-  body.is-loaded .reveal--3 { animation-delay: .22s; }
-  body.is-loaded .reveal--4 { animation-delay: .32s; }
-  body.is-loaded .reveal--5 { animation-delay: .42s; }
+  body.is-loaded .reveal--2 { animation-delay: .16s; }
+  body.is-loaded .reveal--3 { animation-delay: .26s; }
+  body.is-loaded .reveal--4 { animation-delay: .36s; }
 }
 
-/* 7. Media queries ------------------------------------------- */
-/* Very narrow phones: trim the body padding */
-@media (max-width: 359px) {
-  .card__body { padding: 20px 18px; }
-  .actions__btn { padding: 0 10px; gap: 7px; }
-}
-
-/* Desktop / landscape: details left, photo right */
+/* 8. Media queries ------------------------------------------- */
+/* Desktop / landscape: content left, portrait right on the organic curve */
 @media (min-width: 880px) {
   .card {
-    max-width: 1000px;
+    max-width: 1040px;
     display: grid;
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
     grid-template-areas: "body media";
-    border-radius: 30px;
+    border-radius: 34px;
   }
 
   .card__body {
     grid-area: body;
     justify-content: center;
-    gap: clamp(18px, 2vw, 28px);
-    padding: clamp(38px, 3.8vw, 58px);
+    gap: clamp(24px, 2.2vw, 32px);
+    padding: clamp(46px, 4.2vw, 66px);
   }
 
   .card__media {
     grid-area: media;
     aspect-ratio: auto;
     min-height: 100%;
+    /* Left-edge S-curve for the horizontal split */
+    --curve: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%20preserveAspectRatio='none'%3E%3Cpath%20d='M33,0%20C11,17%2043,37%2022,57%20C6,73%2031,87%2018,100%20L100,100%20L100,0%20Z'%20fill='%23ffffff'/%3E%3C/svg%3E");
   }
 
-  .card__photo { object-position: center 22%; }
+  .card__photo { object-position: center 16%; }
+
+  .card__band--gold { transform: translateX(-12px); }
+  .card__band--teal { transform: translateX(-24px); }
 }
 
 /* Reduced motion: no animation, everything visible */

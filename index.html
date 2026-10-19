@@ -10,7 +10,7 @@
 
     <meta
       name="description"
-      content="Tanvir Hossain Rifat — Managing Director of Shordindu. Email, call or explore the Shordindu brand."
+      content="Tanvir Hossain Rifat — Managing Director of Shordindu. Email or call directly, and explore the Shordindu brand."
     />
     <meta name="author" content="Tanvir Hossain Rifat" />
     <meta name="theme-color" content="#0E3536" />
@@ -27,7 +27,7 @@
     />
     <meta
       property="og:description"
-      content="Connect with Tanvir Hossain Rifat — Managing Director of Shordindu."
+      content="Connect with me — Managing Director of Shordindu."
     />
     <meta property="og:url" content="https://YOUR-DOMAIN.com/" />
     <meta
@@ -44,7 +44,7 @@
     />
     <meta
       name="twitter:description"
-      content="Connect with Tanvir Hossain Rifat — Managing Director of Shordindu."
+      content="Connect with me — Managing Director of Shordindu."
     />
     <meta
       name="twitter:image"
@@ -60,7 +60,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap"
     />
 
     <link rel="stylesheet" href="css/style.css" />
@@ -96,10 +96,12 @@
   </head>
   <body>
     <main class="card">
-      <!-- PHOTO: swap assets/profile.jpg with a portrait (portrait ratio works best) -->
-      <div class="card__media">
+      <!-- PORTRAIT + organic curve. PHOTO: swap assets/profile.jpg -->
+      <div class="card__media reveal reveal--1">
+        <span class="card__band card__band--teal" aria-hidden="true"></span>
+        <span class="card__band card__band--gold" aria-hidden="true"></span>
         <img
-          class="card__photo reveal reveal--1"
+          class="card__photo"
           src="assets/profile.jpg"
           alt="Portrait of Tanvir Hossain Rifat"
           width="720"
@@ -110,82 +112,80 @@
       </div>
 
       <div class="card__body">
-        <header class="profile reveal reveal--2">
-          <h1 class="profile__name">Tanvir Hossain Rifat</h1>
-          <p class="profile__role">Managing Director, Shordindu</p>
+        <header class="identity reveal reveal--2">
+          <h1 class="identity__name">
+            <span class="identity__first">Tanvir Hossain</span
+            ><span class="identity__last">Rifat</span>
+          </h1>
+          <p class="identity__role">Managing Director, Shordindu</p>
         </header>
 
         <nav class="actions reveal reveal--3" aria-label="Contact actions">
-          <div class="actions__col">
-            <a
-              class="actions__btn actions__btn--email"
-              href="mailto:rifat4111@gmail.com"
-              aria-label="Email Tanvir Hossain Rifat"
+          <a
+            class="actions__btn actions__btn--primary"
+            href="mailto:rifat4111@gmail.com"
+            aria-label="Email Tanvir Hossain Rifat"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
             >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <rect x="3" y="5" width="18" height="14" rx="2.5" />
-                <path d="m4 7.5 8 5.5 8-5.5" />
-              </svg>
-              <span>Email</span>
-            </a>
-            <a
-              class="actions__detail"
-              href="mailto:rifat4111@gmail.com"
-              aria-label="Email rifat4111@gmail.com"
-              >rifat4111@gmail.com</a
-            >
-          </div>
+              <rect x="3" y="5" width="18" height="14" rx="2.5" />
+              <path d="m4 7.5 8 5.5 8-5.5" />
+            </svg>
+            <span>Email Me</span>
+          </a>
 
-          <div class="actions__col">
-            <a
-              class="actions__btn actions__btn--call"
-              href="tel:+447717800830"
-              aria-label="Call Tanvir Hossain Rifat"
+          <a
+            class="actions__btn actions__btn--secondary"
+            href="tel:+447717800830"
+            aria-label="Call Tanvir Hossain Rifat"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
             >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path
-                  d="M6.4 3.5h2.9l1.5 3.9-1.9 1.4a12.2 12.2 0 0 0 5.8 5.8l1.4-1.9 3.9 1.5v2.9a2 2 0 0 1-2.2 2A16.6 16.6 0 0 1 4.4 5.7a2 2 0 0 1 2-2.2Z"
-                />
-              </svg>
-              <span>Call</span>
-            </a>
-            <a
-              class="actions__detail"
-              href="tel:+447717800830"
-              aria-label="Call +447717800830"
-              >+447717800830</a
-            >
-          </div>
+              <path
+                d="M6.4 3.5h2.9l1.5 3.9-1.9 1.4a12.2 12.2 0 0 0 5.8 5.8l1.4-1.9 3.9 1.5v2.9a2 2 0 0 1-2.2 2A16.6 16.6 0 0 1 4.4 5.7a2 2 0 0 1 2-2.2Z"
+              />
+            </svg>
+            <span>Call Now</span>
+          </a>
         </nav>
 
-        <!-- BRAND BANNER: the whole banner links to the Shordindu site -->
+        <!-- FEATURED SHORDINDU CARD: the whole card links to the site -->
         <a
-          class="brand-card reveal reveal--4"
+          class="feature reveal reveal--4"
           href="https://shordindu-info.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit the Shordindu website"
         >
-          <span class="brand-card__badge">
+          <svg
+            class="feature__decor"
+            viewBox="0 0 320 120"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M-8 118C70 104 118 60 138 2" />
+            <path d="M328 14C266 28 224 62 204 110" />
+          </svg>
+
+          <span class="feature__badge">
             <!-- LOGO: swap assets/logo.png (amber tint assumes a single-colour mark) -->
             <img
-              class="brand-card__logo"
+              class="feature__logo"
               src="assets/logo.png"
               alt="Shordindu logo"
               width="30"
@@ -193,12 +193,12 @@
             />
           </span>
 
-          <span class="brand-card__text">
-            <span class="brand-card__title">SHORDINDU</span>
-            <span class="brand-card__cta">Explore the brand</span>
+          <span class="feature__text">
+            <span class="feature__title">Shordindu</span>
+            <span class="feature__label">Explore the brand</span>
           </span>
 
-          <span class="brand-card__arrow" aria-hidden="true">
+          <span class="feature__arrow" aria-hidden="true">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -212,14 +212,10 @@
             </svg>
           </span>
         </a>
-
-        <footer class="footer reveal reveal--5">
-          <p class="footer__text">Connect with Tanvir</p>
-        </footer>
       </div>
     </main>
 
-    <!-- Recolours the flat logo to the exact brand amber. Remove if you supply a full-colour logo. -->
+    <!-- Recolours the flat logo to the brand gold. Remove if you supply a full-colour logo. -->
     <svg
       class="svg-defs"
       aria-hidden="true"
