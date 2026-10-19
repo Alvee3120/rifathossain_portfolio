@@ -18,3 +18,4 @@
 - Prefers organic, flowing composition — smooth asymmetrical curves between sections via SVG masks / `clip-path`, layered offset color bands for depth, and rounded card corners — rather than straight divisions or curves approximated with multiple rigid borders. Confidence: 0.7
 - Prefers minimal, focused content: no unnecessary biography text, quotes, navigation menus, or social-media icons. Confidence: 0.65
 - When a visual reference/mockup is supplied, expects the built page to match it faithfully (layout, typography, button/pill shapes, banner composition) and to derive the mobile variant from that same reference. Confidence: 0.65
+- Objects to CSS that crops or cuts into a photo — asks to remove masks, clip-paths, or decorative overlays that slice the image, and wants photos rendered as clean, intact rectangles. Confidence: 0.5

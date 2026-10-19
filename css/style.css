@@ -2,11 +2,11 @@
    Tanbir Hossain Rifat — executive link-in-bio
    Brand: deep teal #0E3536 · warm gold #EEA347
    Type : DM Serif Display (display) · Manrope (UI)
-   Layout: dark botanical backdrop + white card
-     · Desktop = landscape, portrait right behind an organic curve
-     · Mobile  = vertical stack, curve adapted to the photo's base
+   Layout: dark botanical backdrop + light card
+     · Desktop = landscape, portrait right
+     · Mobile  = vertical stack
    1. Tokens   2. Reset   3. Base   4. Card shell
-   5. Media curve  6. Body components  7. Animations  8. Queries
+   5. Media   6. Body components  7. Animations  8. Queries
    ============================================================ */
 
 /* 1. Tokens -------------------------------------------------- */
@@ -23,7 +23,7 @@
 
   /* Neutrals */
   --page: #06110F;
-  --surface: #FFFFFF;
+  --surface: #E8E8E9;
   --surface-2: #F7F1E7;
   --ink: #16221F;
   --muted: #5A6560;
@@ -121,46 +121,19 @@ body::after {
   box-shadow: var(--shadow-card), 0 0 0 1px rgba(255, 255, 255, .07);
 }
 
-/* 5. Media + organic curve ----------------------------------- */
-/* --curve is one reusable SVG mask; the bands reuse it, offset,
-   to create the layered teal/gold edges behind the portrait. */
+/* 5. Media --------------------------------------------------- */
 .card__media {
   position: relative;
   aspect-ratio: 1 / 1;
-  --curve: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%20preserveAspectRatio='none'%3E%3Cpath%20d='M0,0%20L100,0%20L100,83%20C79,97%2055,69%2031,85%20C17,94%207,87%200,93%20Z'%20fill='%23ffffff'/%3E%3C/svg%3E");
 }
 
-.card__photo,
-.card__band {
+.card__photo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  -webkit-mask-image: var(--curve);
-          mask-image: var(--curve);
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-          mask-size: 100% 100%;
-}
-
-.card__photo {
-  z-index: 3;
   object-fit: cover;
   object-position: center 20%;
-}
-
-.card__band { z-index: 1; }
-
-.card__band--teal {
-  background: linear-gradient(150deg, var(--teal-600), var(--teal-900));
-  transform: translateY(18px);
-}
-
-.card__band--gold {
-  z-index: 2;
-  background: linear-gradient(150deg, var(--amber-soft), var(--amber));
-  transform: translateY(9px);
 }
 
 /* 6. Body components ----------------------------------------- */
@@ -410,14 +383,9 @@ body::after {
     grid-area: media;
     aspect-ratio: auto;
     min-height: 100%;
-    /* Left-edge S-curve for the horizontal split */
-    --curve: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%20preserveAspectRatio='none'%3E%3Cpath%20d='M33,0%20C11,17%2043,37%2022,57%20C6,73%2031,87%2018,100%20L100,100%20L100,0%20Z'%20fill='%23ffffff'/%3E%3C/svg%3E");
   }
 
   .card__photo { object-position: center 16%; }
-
-  .card__band--gold { transform: translateX(-12px); }
-  .card__band--teal { transform: translateX(-24px); }
 }
 
 /* Reduced motion: no animation, everything visible */
